@@ -1,2 +1,2 @@
-# djangoecommerce
-Projeto de didático utilizado para meu curso de Django
+# django-ecommerce
+Projeto de didático utilizado para fins de conhecimento
