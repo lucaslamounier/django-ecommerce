@@ -1,11 +1,17 @@
 # coding=utf-8
 
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import (
+            RedirectView, TemplateView, ListView, DetailView
+)
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
+from pagseguro import PagSeguro
+from django.http import HttpResponse
+from paypal.standard.forms import PayPalPaymentsForm
 
 from catalog.models import Product
 
@@ -80,9 +86,90 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
         else:
             messages.info(request, 'Não há itens no carrinho de compras')
             return redirect('checkout:cart_item')
-        return super(CheckoutView, self).get(request, *args, **kwargs)
+        response = super(CheckoutView, self).get(request, *args, **kwargs)
+        response.context_data['order'] = order
+        return response
 
 
+class OrderListView(LoginRequiredMixin, ListView):
+
+    template_name = 'checkout/order_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+
+class OrderDetailView(LoginRequiredMixin, DetailView):
+
+    template_name =  'checkout/order_detail.html'
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+class PagSeguroView(LoginRequiredMixin, RedirectView):
+    # Integração via redirect
+    def get_redirect_url(self, *args, **kwargs):
+        order_pk = self.kwargs.get('pk')
+        order = get_object_or_404(
+            Order.objects.filter(user=self.request.user), pk=order_pk
+        )
+        pg = order.pagseguro()
+        # constroi toda a url http://host/path
+        pg.redirect_url = self.request.build_absolute_uri(
+            reverse('checkout:order_detail', args=[order.pk])
+        )
+        # resultado da transação, informa se a compra foi concluida.
+        pg.notification_url = self.request.build_absolute_uri(
+            reverse('checkout:pagseguro_notification')
+        )
+        response = pg.checkout()
+        return response.payment_url
+
+def PaypalView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'checkout/paypal.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PaypalView, self).get_context_data(**kwargs)
+        order_pk = self.kwargs.get('pk')
+        order = get_object_or_404(
+            Order.objects.filter(user=self.request.user), pk=order_pk
+        )
+        paypal_dict = order.paypal()
+        paypal_dict['return_url'] = self.request.build_absolute_uri(
+            reverse('checkout:order_list')
+        )
+        paypal_dict['cancel_return'] = self.request.build_absolute_uri(
+            reverse('checkout:order_list')
+        )
+        context['form'] = PayPalPaymentsForm(initial=paypal_dict)
+        return context
+
+
+@csrf_exempt
+def pagseguro_notification(request):
+    notification_code = request.POST.get('notificationCode', None)
+    if notification_code:
+        pg = PagSeguro(
+            email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
+            config={'sandbox': settings.PAGSEGURO_SANDBOX}
+        )
+        notification_data = pg.check_notification(notification_code)
+        status = notification_data.status
+        reference = notification_data.reference
+        try:
+            order = Order.objects.get(pk=reference)
+        except Order.DoesNotExist:
+            pass
+        else:
+            order.pagseguro_update_status(status)
+    return HttpResponse('OK')
+
+
+pagseguro_view = PagSeguroView.as_view()
 create_cartitem = CreateCartItemView.as_view()
 cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()
+order_list = OrderListView.as_view()
+order_detail = OrderDetailView.as_view()
