@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # Django Ecommerce
-Loja virtual - Projeto de didático utilizado para [meu curso de Django](https://www.udemy.com/construa-um-e-commerce-com-python-3-e-django/?couponCode=github)
+Loja virtual - Projeto de didático utilizado para fins didaticos.
 
 ![image](https://cloud.githubusercontent.com/assets/5832193/17952257/3ee3156e-6a3f-11e6-8add-6eeccbf68e3c.png)
 
@@ -32,10 +31,3 @@ env\Scripts\activate.bat
 pip install -r requirements.txt
 python manage.py runserver
 ```
-
-## Video aula
-[Construa um e-commerce com python3 e Django](https://www.udemy.com/construa-um-e-commerce-com-python-3-e-django/?couponCode=github)
-=======
-# django-ecommerce
-Projeto de didático utilizado para fins de conhecimento
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
