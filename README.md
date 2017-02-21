@@ -1,5 +1,5 @@
 # Django Ecommerce
-Loja virtual - Projeto de didático utilizado para fins didaticos.
+Loja virtual - Projeto utilizado para fins de aprendizagem.
 
 ![image](https://cloud.githubusercontent.com/assets/5832193/17952257/3ee3156e-6a3f-11e6-8add-6eeccbf68e3c.png)
 
