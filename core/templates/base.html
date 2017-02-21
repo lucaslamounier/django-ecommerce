@@ -6,7 +6,10 @@
 	<title>{% block title %}E-Commerce{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<<<<<<< HEAD
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+=======
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 	<link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}" media="screen" />
 	<link rel="stylesheet" href="{% static 'assets/custom.min.css' %}" media="screen" />
 	<link rel="stylesheet" href="{% static 'assets/extra.css' %}" media="screen" />
@@ -40,9 +43,12 @@
 			</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
 			  <li><a href="{% url 'checkout:cart_item' %}">
 						  <i class="fa fa-shopping-cart"></i>
 						Carrinho</a></li>
+=======
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 			{% if user.is_authenticated %}
 			<li><a href="">Olá, {{user}}</a></li>
 			<li><a href="{% url 'accounts:index' %}">Conta</a></li>
@@ -51,6 +57,10 @@
 			<li><a href="{% url 'login' %}">Entrar</a></li>
 			<li><a href="{% url 'accounts:register' %}">Registro</a></li>
 			{% endif %}
+<<<<<<< HEAD
+=======
+			<li><a href="{% url 'checkout:cart_item' %}">Carrinho</a></li>
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
           </ul>
         </div>
       </div>
@@ -80,6 +90,9 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="{% static 'assets/bootstrap.min.js' %}"></script>
+<<<<<<< HEAD
 	{% block scripts %}{% endblock %}
+=======
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 </body>
 </html>

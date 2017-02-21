@@ -1,8 +1,13 @@
 # coding=utf-8
 
 from django.test import Client, TestCase
+<<<<<<< HEAD
 from django.core.urlresolvers import reverse
 from django.conf import settings
+=======
+from django.conf import settings
+from django.core.urlresolvers import reverse
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
 from model_mommy import mommy
 
@@ -45,14 +50,24 @@ class CheckoutViewTestCase(TestCase):
         self.client = Client()
         self.checkout_url = reverse('checkout:checkout')
 
+<<<<<<< HEAD
     def test_checkou_view(self):
         response = self.client.get(self.checkout_url)
         redirect_url = '{}?next={}'.format(
             reverse(settings.LOGIN_URL), self.checkout_url
         )
+=======
+    def test_checkout_view(self):
+        response = self.client.get(self.checkout_url)
+        redirect_url = '{}?next={}'.format(reverse(settings.LOGIN_URL), self.checkout_url)
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         self.assertRedirects(response, redirect_url)
         self.client.login(username=self.user.username, password='123')
         self.cart_item.cart_key = self.client.session.session_key
         self.cart_item.save()
         response = self.client.get(self.checkout_url)
+<<<<<<< HEAD
         self.assertTemplateUsed(response, 'checkout/checkout.html')
+=======
+        self.assertTemplateUsed(response, 'checkout/checkout.html')
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f

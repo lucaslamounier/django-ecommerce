@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Django Ecommerce
 Loja virtual - Projeto de didático utilizado para [meu curso de Django](https://www.udemy.com/construa-um-e-commerce-com-python-3-e-django/?couponCode=github)
 
@@ -34,3 +35,7 @@ python manage.py runserver
 
 ## Video aula
 [Construa um e-commerce com python3 e Django](https://www.udemy.com/construa-um-e-commerce-com-python-3-e-django/?couponCode=github)
+=======
+# django-ecommerce
+Projeto de didático utilizado para fins de conhecimento
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f

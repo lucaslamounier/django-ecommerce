@@ -1,10 +1,15 @@
 # coding=utf-8
 
 from django.test import TestCase
+<<<<<<< HEAD
 from django.conf import settings
 
 from model_mommy import mommy
 
+=======
+from model_mommy import mommy
+from django.conf import settings
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 from checkout.models import CartItem, Order
 
 
@@ -32,4 +37,8 @@ class OrderTestCase(TestCase):
         order = Order.objects.get()
         self.assertEquals(order.user, self.user)
         order_item = order.items.get()
+<<<<<<< HEAD
         self.assertEquals(order_item.product, self.cart_item.product)
+=======
+        self.assertEquals(order_item.product, self.cart_item.product)
+>>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
