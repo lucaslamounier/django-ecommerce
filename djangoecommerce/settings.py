@@ -22,14 +22,11 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', '123')
+SECRET_KEY = os.getenv('SECRET_KEY', '2533ec4fe3943df55b3b4e7a648caf069bcfdb9f')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-<<<<<<< HEAD
 DEBUG = True
-=======
-DEBUG = False
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
+
 
 ALLOWED_HOSTS = []
 
@@ -92,22 +89,11 @@ WSGI_APPLICATION = 'djangoecommerce.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-<<<<<<< HEAD
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-=======
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecommerce',
-        'USER': 'postgres',
-        'PASSWORD': 'lucas1993$',
-        'HOST': 'localhost',
-        'PORT': '5432',
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
     }
 }
 
@@ -136,11 +122,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-<<<<<<< HEAD
 TIME_ZONE = 'America/Sao_Paulo'
-=======
-TIME_ZONE = 'America/Recife'
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
+
 
 USE_I18N = True
 
@@ -153,10 +136,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-<<<<<<< HEAD
 # Heroku
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -201,10 +181,6 @@ PAGSEGURO_SANDBOX = True
 PAYPAL_TEST = True
 PAYPAL_EMAIL = 'lucasls.oas@gmail.com'
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 try:
     from .local_settings import *
 except ImportError:

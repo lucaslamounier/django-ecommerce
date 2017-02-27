@@ -1,6 +1,5 @@
 # coding=utf-8
 
-<<<<<<< HEAD
 from pagseguro import PagSeguro
 
 from paypal.standard.forms import PayPalPaymentsForm
@@ -11,25 +10,21 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
     RedirectView, TemplateView, ListView, DetailView
-=======
+)
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
             RedirectView, TemplateView, ListView, DetailView
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 )
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
-<<<<<<< HEAD
 from django.conf import settings
 from django.http import HttpResponse
-=======
 from django.views.decorators.csrf import csrf_exempt
 from pagseguro import PagSeguro
 from django.http import HttpResponse
 from paypal.standard.forms import PayPalPaymentsForm
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
 from catalog.models import Product
 
@@ -101,10 +96,7 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
             order = Order.objects.create_order(
                 user=request.user, cart_items=cart_items
             )
-<<<<<<< HEAD
             cart_items.delete()
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         else:
             messages.info(request, 'Não há itens no carrinho de compras')
             return redirect('checkout:cart_item')
@@ -119,28 +111,17 @@ class OrderListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-<<<<<<< HEAD
         return Order.objects.filter(user=self.request.user).order_by('-pk')
-=======
-        return Order.objects.filter(user=self.request.user)
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
 
-<<<<<<< HEAD
     template_name = 'checkout/order_detail.html'
-=======
-    template_name =  'checkout/order_detail.html'
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 class PagSeguroView(LoginRequiredMixin, RedirectView):
     # Integração via redirect
     def get_redirect_url(self, *args, **kwargs):
@@ -160,12 +141,8 @@ class PagSeguroView(LoginRequiredMixin, RedirectView):
         response = pg.checkout()
         return response.payment_url
 
-<<<<<<< HEAD
 
 class PaypalView(LoginRequiredMixin, TemplateView):
-=======
-def PaypalView(LoginRequiredMixin, TemplateView):
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
     template_name = 'checkout/paypal.html'
 
@@ -180,14 +157,11 @@ def PaypalView(LoginRequiredMixin, TemplateView):
             reverse('checkout:order_list')
         )
         paypal_dict['cancel_return'] = self.request.build_absolute_uri(
-            reverse('checkout:order_list')
+                reverse('checkout:order_list')
         )
-<<<<<<< HEAD
         paypal_dict['notify_url'] = self.request.build_absolute_uri(
             reverse('paypal-ipn')
         )
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         context['form'] = PayPalPaymentsForm(initial=paypal_dict)
         return context
 
@@ -212,7 +186,6 @@ def pagseguro_notification(request):
     return HttpResponse('OK')
 
 
-<<<<<<< HEAD
 def paypal_notification(sender, **kwargs):
     ipn_obj = sender
     if ipn_obj.payment_status == ST_PP_COMPLETED and \
@@ -226,17 +199,11 @@ def paypal_notification(sender, **kwargs):
 
 valid_ipn_received.connect(paypal_notification)
 
-
-=======
-pagseguro_view = PagSeguroView.as_view()
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
+# Views
 create_cartitem = CreateCartItemView.as_view()
 cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()
 order_list = OrderListView.as_view()
 order_detail = OrderDetailView.as_view()
-<<<<<<< HEAD
 pagseguro_view = PagSeguroView.as_view()
 paypal_view = PaypalView.as_view()
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f

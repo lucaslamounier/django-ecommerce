@@ -5,10 +5,5 @@ psycopg2==2.6.1
 model-mommy==1.2.6
 whitenoise==3.2
 django-widget-tweaks==1.4.1
-<<<<<<< HEAD
-pagseguro==0.3.1
-django-paypal==0.3.3
-=======
 pagseguro==0.3.2
 django-paypal==0.3.6
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f

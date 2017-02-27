@@ -1,16 +1,13 @@
 # coding=utf-8
-<<<<<<< HEAD
 
 from pagseguro import PagSeguro
 
 from django.db import models
 from django.conf import settings
 
-=======
 from pagseguro import PagSeguro
 from django.db import models
 from django.conf import settings
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 from catalog.models import Product
 
 
@@ -102,10 +99,7 @@ class Order(models.Model):
         return Product.objects.filter(pk__in=products_ids)
 
     def total(self):
-<<<<<<< HEAD
-=======
         # Realiza a soma preço * quantidade
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         aggregate_queryset = self.items.aggregate(
             total=models.Sum(
                 models.F('price') * models.F('quantity'),
@@ -120,7 +114,6 @@ class Order(models.Model):
         elif status == '7':
             self.status = 2
         self.save()
-<<<<<<< HEAD
 
     def complete(self):
         self.status = 1
@@ -129,11 +122,6 @@ class Order(models.Model):
     def pagseguro(self):
         self.payment_option = 'pagseguro'
         self.save()
-=======
-        
-
-    def pagseguro(self):
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         pg = PagSeguro(
             email=settings.PAGSEGURO_EMAIL, token=settings.PAGSEGURO_TOKEN,
             config={'sandbox': settings.PAGSEGURO_SANDBOX}
@@ -141,11 +129,8 @@ class Order(models.Model):
         pg.sender = {
             'email': self.user.email
         }
-<<<<<<< HEAD
         pg.reference_prefix = ''
-=======
         pg.reference_prefix = None
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
         pg.shipping = None
         pg.reference = self.pk
         for item in self.items.all():
@@ -159,7 +144,6 @@ class Order(models.Model):
             )
         return pg
 
-<<<<<<< HEAD
     def paypal(self):
         self.payment_option = 'paypal'
         self.save()
@@ -179,8 +163,6 @@ class Order(models.Model):
             index = index + 1
         return paypal_dict
 
-=======
->>>>>>> 2533ec4fe3943df55b3b4e7a648caf069bcfdb9f
 
 class OrderItem(models.Model):
 
