@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # libs
     'widget_tweaks',
     'paypal.standard.ipn',
+    'easy_thumbnails',
     # apps
     'core',
     'accounts',
@@ -124,7 +125,6 @@ LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
 
-
 USE_I18N = True
 
 USE_L10N = True
@@ -135,6 +135,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 # Heroku
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -180,6 +186,41 @@ PAGSEGURO_SANDBOX = True
 # PAYPAL settings
 PAYPAL_TEST = True
 PAYPAL_EMAIL = 'lucasls.oas@gmail.com'
+
+# AWS
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+
+AWS_S3_SECURE_URLS = True
+AWS_QUERYSTRING_AUTH = False
+AWS_PRELOAD_METADATA = True
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', '')
+AWS_STORAGE_BUCKET_NAME = 'djangoecommerce'
+AWS_S3_CUSTOM_DOMAIN = 's3.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
+
+STATICFILES_STORAGE = 'djangoecommerce.s3util.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+DEFAULT_FILE_STORAGE = 'djangoecommerce.s3util.MediaStorage'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+AWS_HEADERS = {
+    'x-amz-acl': 'public-read',
+    'Cache-Control': 'public, max-age=31556926'
+}
+
+
+
+# Thumbnails
+THUMBNAIL_ALIASES = {
+    '':{
+        'product_image':{'size': (285, 160), 'crop':True},
+    },
+}
+
+
+
 
 try:
     from .local_settings import *

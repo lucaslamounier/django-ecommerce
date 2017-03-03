@@ -11,20 +11,12 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import (
     RedirectView, TemplateView, ListView, DetailView
 )
-from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import (
-            RedirectView, TemplateView, ListView, DetailView
-)
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from pagseguro import PagSeguro
-from django.http import HttpResponse
-from paypal.standard.forms import PayPalPaymentsForm
 
 from catalog.models import Product
 
@@ -123,18 +115,16 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 
 class PagSeguroView(LoginRequiredMixin, RedirectView):
-    # Integração via redirect
+
     def get_redirect_url(self, *args, **kwargs):
         order_pk = self.kwargs.get('pk')
         order = get_object_or_404(
             Order.objects.filter(user=self.request.user), pk=order_pk
         )
         pg = order.pagseguro()
-        # constroi toda a url http://host/path
         pg.redirect_url = self.request.build_absolute_uri(
             reverse('checkout:order_detail', args=[order.pk])
         )
-        # resultado da transação, informa se a compra foi concluida.
         pg.notification_url = self.request.build_absolute_uri(
             reverse('checkout:pagseguro_notification')
         )
@@ -157,7 +147,7 @@ class PaypalView(LoginRequiredMixin, TemplateView):
             reverse('checkout:order_list')
         )
         paypal_dict['cancel_return'] = self.request.build_absolute_uri(
-                reverse('checkout:order_list')
+            reverse('checkout:order_list')
         )
         paypal_dict['notify_url'] = self.request.build_absolute_uri(
             reverse('paypal-ipn')
@@ -199,7 +189,7 @@ def paypal_notification(sender, **kwargs):
 
 valid_ipn_received.connect(paypal_notification)
 
-# Views
+
 create_cartitem = CreateCartItemView.as_view()
 cart_item = CartItemView.as_view()
 checkout = CheckoutView.as_view()

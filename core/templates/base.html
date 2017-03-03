@@ -40,7 +40,7 @@
 			</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-			  <li><a href="{% url 'checkout:cart_item' %}">Carrinho  <i class="fa fa-shopping-cart"></i></a></li>
+			  <li><a href="{% url 'checkout:cart_item' %}"><i class="fa fa-shopping-cart"></i> </a></li>
 			{% if user.is_authenticated %}
 			 <li><a href="">Olá, {{user}}</a></li>
 			<li><a href="{% url 'accounts:index' %}">Conta</a></li>
@@ -76,8 +76,8 @@
 			</div>
 		</footer>
 	</div>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{% static 'assets/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/jquery-1.10.2.min.js' %}"></script>
+  <script src="{% static 'assets/bootstrap.min.js' %}"></script>
 	{% block scripts %}{% endblock %}
 </body>
 </html>
