@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'paypal.standard.ipn',
     'easy_thumbnails',
+    'watson',
     # apps
     'core',
     'accounts',
@@ -210,13 +211,20 @@ AWS_HEADERS = {
     'Cache-Control': 'public, max-age=31556926'
 }
 
-
-
 # Thumbnails
 THUMBNAIL_ALIASES = {
     '':{
         'product_image':{'size': (285, 160), 'crop':True},
     },
+}
+
+# cache
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION':'cache',
+    }
 }
 
 

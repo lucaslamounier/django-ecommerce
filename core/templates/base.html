@@ -38,7 +38,14 @@
 			<li>
 				<a href="{% url 'contact' %}">Contato</a>
 			</li>
-          </ul>
+    </ul>
+		<form class="navbar-form navbar-left" role="search"
+				action="{% url 'catalog:product_list' %}">
+				<div class="form-group">
+						<input type="text" name="q" class="form-control" placeholder="Pesquisar ..." />
+				</div>
+		</form>
+
           <ul class="nav navbar-nav navbar-right">
 			  <li><a href="{% url 'checkout:cart_item' %}"><i class="fa fa-shopping-cart"></i> </a></li>
 			{% if user.is_authenticated %}

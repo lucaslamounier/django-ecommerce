@@ -9,6 +9,8 @@ pagseguro==0.3.2
 django-paypal==0.3.6
 Pillow
 easy_thumbnails
-# boto access aws api
+
+# boto e django-storage access aws api
 boto
 django-storages
+django-watson

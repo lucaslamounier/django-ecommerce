@@ -31,3 +31,16 @@ env\Scripts\activate.bat
 pip install -r requirements.txt
 python manage.py runserver
 ```
+# install watson
+```
+python manage.py installwatson
+
+register models for works with watson
+in your_app/apps.py
+
+python manage.py buildwatson
+
+create cache
+
+python manage.py createcachetable
+```
