@@ -187,7 +187,7 @@ PAGSEGURO_SANDBOX = True
 # PAYPAL settings
 PAYPAL_TEST = True
 PAYPAL_EMAIL = 'lucasls.oas@gmail.com'
-
+'''
 # AWS
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
@@ -210,6 +210,7 @@ AWS_HEADERS = {
     'x-amz-acl': 'public-read',
     'Cache-Control': 'public, max-age=31556926'
 }
+'''
 
 # Thumbnails
 THUMBNAIL_ALIASES = {
