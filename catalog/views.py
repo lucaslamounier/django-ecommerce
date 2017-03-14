@@ -49,7 +49,7 @@ class CategoryListView(generic.ListView):
 
 category = CategoryListView.as_view()
 
-@cache_page(60)
+#@cache_page(60)
 def product(request, slug):
     product = Product.objects.get(slug=slug)
     context = {
