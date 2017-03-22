@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMINS = (
+    ('Lucas', 'lucasls.oas@gmail.com'),
+)
+
 
 # Application definition
 
@@ -133,14 +137,15 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ALLOWED_HOSTS = ['*']
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Heroku
@@ -187,6 +192,8 @@ PAGSEGURO_SANDBOX = True
 # PAYPAL settings
 PAYPAL_TEST = True
 PAYPAL_EMAIL = 'lucasls.oas@gmail.com'
+
+
 '''
 # AWS
 STATICFILES_LOCATION = 'static'
@@ -214,23 +221,60 @@ AWS_HEADERS = {
 
 # Thumbnails
 THUMBNAIL_ALIASES = {
-    '':{
-        'product_image':{'size': (285, 160), 'crop':True},
+    '': {
+        'product_image': {'size': (285, 160), 'crop': True},
     },
 }
+#THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 # cache
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION':'cache',
+        'LOCATION': 'cache',
     }
 }
 
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'checkout.views': {
+            # commment class case save log in file
 
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
 
-
+            #uncomment for save log in file
+            #'class': 'logging.FileHandler',
+            #'filename': os.path.join(BASE_DIR, 'checkout.views.log'),
+        }
+    },
+    'loggers': {
+        'checkout.views': {
+            'handlers': ['checkout.views'],
+            'level': 'DEBUG',
+        }
+    }
+}
 try:
     from .local_settings import *
 except ImportError:
