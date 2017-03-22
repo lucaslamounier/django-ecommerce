@@ -259,13 +259,13 @@ LOGGING = {
         'checkout.views': {
             # commment class case save log in file
 
-            'class': 'logging.StreamHandler',
+            #'class': 'logging.StreamHandler',
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
 
             #uncomment for save log in file
-            #'class': 'logging.FileHandler',
-            #'filename': os.path.join(BASE_DIR, 'checkout.views.log'),
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'checkout.views.log'),
         }
     },
     'loggers': {
