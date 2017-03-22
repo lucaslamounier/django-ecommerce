@@ -10,8 +10,15 @@
         </a>
         <div class="caption">
             <h3>{{ product }}</h3>
+            {% if product.price %}
+              <h4>R$ {{ product.price }}</h4>
+            {% endif %}
             {{ product.description|linebreaks }}
-            <p><a href="{{ product.get_absolute_url }}" class="btn btn-success" role="button">Detalhes</a> <a href="{% url 'checkout:create_cartitem' product.slug %}" class="btn btn-default" role="button">Adicionar</a></p>
+            <p>
+              <a href="{{ product.get_absolute_url }}" class="btn btn-success" role="button">Detalhes</a>
+              <a href="{% url 'checkout:create_cartitem' product.slug %}"
+              class="btn btn-default cart-item-add" role="button">Adicionar</a>
+            </p>
         </div>
     </div>
 </div>

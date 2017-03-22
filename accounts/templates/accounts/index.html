@@ -14,6 +14,9 @@
           <a href="{% url 'accounts:update_user' %}" class="list-group-item">Alterar Dados</a>
           <a href="{% url 'accounts:update_password' %}" class="list-group-item">Alterar Senha</a>
           <a href="{% url 'checkout:order_list' %}" class="list-group-item">Meus Pedidos</a>
+          {% if user.is_superuser %}
+                  <a href="{% url 'admin:index' %}" class="list-group-item">Acessar módulo administrativo</a>
+          {% endif %}
         </div>
     </div>
     <div class="col-md-8">
